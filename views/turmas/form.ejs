@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+
+<main class="container mt-4">
+    <h1><%= turma ? 'Editar' : 'Nova' %> Turma</h1>
+    <hr>
+    
+    <div class="card">
+        <div class="card-body">
+            <form action="<%= turma ? '/turmas/editar/' + turma.id : '/turmas/nova' %>" method="POST">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome da Turma</label>
+                    <input type="text" class="form-control" id="nome" name="nome" value="<%= turma ? turma.nome : '' %>" required>
+                </div>
+
+                <a href="/turmas" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>
