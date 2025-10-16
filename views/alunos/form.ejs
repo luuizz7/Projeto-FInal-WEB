@@ -1,35 +1,61 @@
 <%- include('../partials/header') %>
 
 <main class="container mt-4">
-    <h1><%= aluno ? 'Editar' : 'Novo' %> Aluno</h1>
-    <hr>
-    
-    <div class="card">
-        <div class="card-body">
-            <form action="<%= aluno ? '/alunos/editar/' + aluno.id : '/alunos/novo' %>" method="POST">
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome Completo</label>
-                    <input type="text" class="form-control" id="nome" name="nome" value="<%= aluno ? aluno.nome : '' %>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="matricula" class="form-label">Matrícula</label>
-                    <input type="text" class="form-control" id="matricula" name="matricula" value="<%= aluno ? aluno.matricula : '' %>" required>
-                </div>
-                <div class="mb-3">
-                    <label for="turmaId" class="form-label">Turma</label>
-                    <select class="form-select" id="turmaId" name="turmaId">
-                        <option value="">Selecione uma turma (opcional)</option>
-                        <% turmas.forEach(turma => { %>
-                            <option value="<%= turma.id %>" <%= (aluno && aluno.turmaId == turma.id) ? 'selected' : '' %>>
-                                <%= turma.nome %>
-                            </option>
-                        <% }) %>
-                    </select>
-                </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4"><%= title %></h2>
 
-                <a href="/alunos" class="btn btn-secondary">Cancelar</a>
-                <button type="submit" class="btn btn-primary">Salvar</button>
-            </form>
+                    <!-- Mensagem de erro que será preenchida pelo controller -->
+                    <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <%= error %>
+                        </div>
+                    <% } %>
+
+                    <form action="<%= aluno.id ? '/alunos/' + aluno.id + '?_method=PUT' : '/alunos' %>" method="POST">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome Completo</label>
+                            <input type="text" class="form-control" id="nome" name="nome" value="<%= aluno.nome %>" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="matricula" class="form-label">Matrícula</label>
+                            <input type="text" class="form-control" id="matricula" name="matricula" value="<%= aluno.matricula %>" required <%= aluno.id ? 'readonly' : '' %>>
+                            <% if (aluno.id) { %>
+                                <div class="form-text">A matrícula não pode ser alterada.</div>
+                            <% } %>
+                        </div>
+
+                        <!-- LÓGICA MELHORADA AQUI -->
+                        <% if (turmas.length > 0) { %>
+                            <div class="mb-3">
+                                <label for="turmaId" class="form-label">Turma</label>
+                                <select class="form-select" id="turmaId" name="turmaId" required>
+                                    <option value="" disabled <%= !aluno.id ? 'selected' : '' %>>Selecione uma turma</option>
+                                    <% turmas.forEach(turma => { %>
+                                        <option value="<%= turma.id %>" <%= aluno.turmaId == turma.id ? 'selected' : '' %>>
+                                            <%= turma.nome %>
+                                        </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+                            </div>
+                        <% } else { %>
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Atenção!</strong> Não há turmas cadastradas. Por favor, <a href="/turmas/novo">crie uma turma</a> antes de cadastrar um aluno.
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-block" disabled>Salvar</button>
+                            </div>
+                        <% } %>
+                        <!-- FIM DA LÓGICA MELHORADA -->
+
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </main>

@@ -4,14 +4,16 @@ import { isAuthenticated } from './middleware.js';
 
 const router = express.Router();
 
-// Todas as rotas de turmas agora exigem login
-router.use(isAuthenticated);
+router.get('/', isAuthenticated, turmaController.listTurmas);
 
-router.get('/', turmaController.listTurmas);
-router.get('/nova', turmaController.showCreateForm);
-router.post('/nova', turmaController.createTurma);
-router.get('/editar/:id', turmaController.showEditForm);
-router.post('/editar/:id', turmaController.updateTurma);
-router.post('/deletar/:id', turmaController.deleteTurma);
+router.get('/novo', isAuthenticated, turmaController.showCreateForm);
+
+router.post('/', isAuthenticated, turmaController.createTurma);
+
+router.get('/:id/edit', isAuthenticated, turmaController.showEditForm);
+
+router.put('/:id', isAuthenticated, turmaController.updateTurma);
+
+router.delete('/:id', isAuthenticated, turmaController.deleteTurma);
 
 export default router;

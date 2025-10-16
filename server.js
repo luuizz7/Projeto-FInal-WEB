@@ -1,12 +1,16 @@
+// A primeira linha DEVE ser esta para carregar as variáveis de ambiente
+import 'dotenv/config'; 
+
 import express from 'express';
 import path from 'path';
 import session from 'express-session';
 import { fileURLToPath } from 'url';
+import methodOverride from 'method-override'; // Importante para os formulários de edição/deleção
 
 // Importa a conexão com o banco de dados
 import sequelize from './config/database.js';
 
-// Importa os modelos
+// Importa os modelos para garantir que sejam registrados no Sequelize
 import './models/associations.js';
 
 // Importa as rotas
@@ -31,10 +35,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bi', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/font')));
+app.use(methodOverride('_method')); // Permite que formulários HTML usem métodos PUT e DELETE
 
 // Configuração da sessão
 app.use(session({
-  secret: 'seu-segredo-super-secreto-mude-depois', // Troque por uma chave segura
+  // MUDANÇA AQUI: Usa a chave secreta do arquivo .env
+  secret: process.env.SESSION_SECRET, 
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } // Para desenvolvimento. Em produção, use true com HTTPS

@@ -20,4 +20,4 @@ const Aluno = sequelize.define('Aluno', {
   timestamps: false
 });
 
-export default Aluno;
+export default Aluno; // <-- Apenas esta linha de exportação
