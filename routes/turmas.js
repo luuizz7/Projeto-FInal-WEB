@@ -1,19 +1,15 @@
-import express from 'express';
-import * as turmaController from '../controllers/turmaController.js';
-import { isAuthenticated } from './middleware.js';
+// rotas de turma com relacionamento aluno -> turma
 
-const router = express.Router();
+const express = require('express')
+const router = express.Router() 
+const turmaController = require('../controllers/turmaController')
+const { checarLogin } = require('./middleware')
 
-router.get('/', isAuthenticated, turmaController.listTurmas);
+router.get('/', checarLogin, turmaController.list)    
+router.get('/novo', checarLogin, turmaController.form)    
+router.post('/novo', checarLogin, turmaController.create) 
+router.get('/editar/:id', checarLogin, turmaController.editView) 
+router.post('/editar/:id', checarLogin, turmaController.update) 
+router.get('/deletar/:id', checarLogin, turmaController.delete) 
 
-router.get('/novo', isAuthenticated, turmaController.showCreateForm);
-
-router.post('/', isAuthenticated, turmaController.createTurma);
-
-router.get('/:id/edit', isAuthenticated, turmaController.showEditForm);
-
-router.put('/:id', isAuthenticated, turmaController.updateTurma);
-
-router.delete('/:id', isAuthenticated, turmaController.deleteTurma);
-
-export default router;
+module.exports = router

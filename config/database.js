@@ -1,15 +1,11 @@
-import { Sequelize } from 'sequelize';
-// O dotenv já foi carregado no server.js, então podemos usar process.env aqui
+// config do banco usando sequelize com postgree, onde eu importo o sequelize e já jogo as informacoes do bdd
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME, 
-  process.env.DB_USER, 
-  process.env.DB_PASS, 
-  {
-    host: process.env.DB_HOST,
+const { Sequelize } = require('sequelize')
+
+const sequelize = new Sequelize('alunoseturmas', 'escolaadmin', 'senha123', {
+    host: 'localhost',
     dialect: 'postgres',
-    logging: false, 
-  }
-);
+    logging: false // desativa logs do sequelize no tmnl
+})
 
-export default sequelize;
+module.exports = sequelize

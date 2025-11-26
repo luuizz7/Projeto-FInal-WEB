@@ -1,113 +1,69 @@
-import { Aluno, Turma } from '../models/associations.js';
+// controller dos alunos
+// esse é o mais completo pq tem chaveest da turma
+// aluno pertence a uma turma
 
-// READ: Listar todos os alunos com o nome da turma (JOIN)
-export const listAlunos = async (req, res) => {
-  try {
-    const alunos = await Aluno.findAll({
-      include: {
-        model: Turma,
-        attributes: ['nome'] // Pega apenas o nome da turma
-      },
-      order: [['nome', 'ASC']]
-    });
-    res.render('alunos/list', { title: 'Alunos', alunos });
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-};
 
-// Mostra o formulário para criar um novo aluno
-export const showCreateForm = async (req, res) => {
-    try {
-        const turmas = await Turma.findAll({ order: [['nome', 'ASC']] });
-        
-        // CORREÇÃO APLICADA AQUI:
-        // Enviamos um objeto 'aluno' com campos vazios (um "molde")
-        // em vez de 'null'.
-        res.render('alunos/form', { 
-            title: 'Novo Aluno', 
-            aluno: { id: null, nome: '', matricula: '', turmaId: null }, // <- ESTA É A MUDANÇA
-            turmas: turmas,
-            error: null 
-        });
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-};
+const Aluno = require('../models/aluno')
+const Turma = require('../models/turma')
 
-// CREATE: Cria um novo aluno no banco
-export const createAluno = async (req, res) => {
-  try {
-    const { nome, matricula, turmaId } = req.body;
-    await Aluno.create({ nome, matricula, turmaId });
-    res.redirect('/alunos');
-  } catch (error) {
-    // Adicionando tratamento de erro para matrícula duplicada
-    if (error.name === 'SequelizeUniqueConstraintError') {
-        const turmas = await Turma.findAll({ order: [['nome', 'ASC']] });
-        return res.render('alunos/form', {
-            title: 'Novo Aluno',
-            aluno: { nome, matricula, turmaId }, // Devolve os dados que o usuário digitou
-            turmas: turmas,
-            error: 'Erro: A matrícula informada já está cadastrada.'
-        });
-    }
-    res.status(500).send(error.message);
-  }
-};
+module.exports = {
 
-// Mostra o formulário para editar um aluno
-export const showEditForm = async (req, res) => {
-    try {
-        const aluno = await Aluno.findByPk(req.params.id);
-        const turmas = await Turma.findAll({ order: [['nome', 'ASC']] });
-        if (!aluno) {
-            return res.status(404).send('Aluno não encontrado');
-        }
-        // Adicionando 'error: null' para consistência com o formulário de criação
-        res.render('alunos/form', { 
-            title: 'Editar Aluno', 
-            aluno: aluno, 
-            turmas: turmas,
-            error: null 
-        });
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-};
+    // listar alunos com join da turma
+    list: async (req, res) => {
+        const alunos = await Aluno.findAll({
+            include: Turma
+        })
+        res.render('alunos/list', { alunos })
+    },
 
-// UPDATE: Atualiza os dados de um aluno (envolvendo FK)
-export const updateAluno = async (req, res) => {
-    try {
-        const { nome, matricula, turmaId } = req.body;
+    // form de criar aluno
+    form: async (req, res) => {
+        const turmas = await Turma.findAll()
+        res.render('alunos/form', { aluno: null, turmas })
+    },
+
+    // criar aluno
+    create: async (req, res) => {
+        const { nome, email, turmaId } = req.body
+
+        await Aluno.create({
+            nome,
+            email,
+            turmaId
+        })
+
+        res.redirect('/alunos')
+    },
+
+    // form de editar aluno
+    editView: async (req, res) => {
+        const { id } = req.params
+
+        const aluno = await Aluno.findByPk(id)
+        const turmas = await Turma.findAll()
+
+        res.render('alunos/form', { aluno, turmas })
+    },
+
+    // editar aluno
+    update: async (req, res) => {
+        const { id } = req.params
+        const { nome, email, turmaId } = req.body
+
         await Aluno.update(
-            { nome, matricula, turmaId },
-            { where: { id: req.params.id } }
-        );
-        res.redirect('/alunos');
-    } catch (error) {
-        // Adicionando tratamento de erro para matrícula duplicada
-        if (error.name === 'SequelizeUniqueConstraintError') {
-            const aluno = await Aluno.findByPk(req.params.id);
-            const turmas = await Turma.findAll({ order: [['nome', 'ASC']] });
-            return res.render('alunos/form', {
-                title: 'Editar Aluno',
-                aluno: { ...aluno.dataValues, nome, matricula, turmaId }, // Devolve os dados que o usuário tentou salvar
-                turmas: turmas,
-                error: 'Erro: A matrícula informada já pertence a outro aluno.'
-            });
-        }
-        res.status(500).send(error.message);
+            { nome, email, turmaId },
+            { where: { id } }
+        )
+
+        res.redirect('/alunos')
+    },
+
+    // deletar aluno
+    delete: async (req, res) => {
+        const { id } = req.params
+
+        await Aluno.destroy({ where: { id } })
+
+        res.redirect('/alunos')
     }
-};
-
-
-// DELETE: Deleta um aluno
-export const deleteAluno = async (req, res) => {
-  try {
-    await Aluno.destroy({ where: { id: req.params.id } });
-    res.redirect('/alunos');
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-};
+}

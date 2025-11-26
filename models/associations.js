@@ -1,19 +1,13 @@
-import Aluno from './aluno.js';
-import Turma from './turma.js';
-import Usuario from './usuario.js';
+// relações entre as tabelas
+// um aluno pertence a uma turma e uma turma tem vários alunos
 
-// Relacionamento: Uma Turma pode ter vários Alunos.
-Turma.hasMany(Aluno, {
-  foreignKey: 'turmaId',
-  onDelete: 'SET NULL', 
-  onUpdate: 'CASCADE'
-});
+const Turma = require('./turma')
+const Aluno = require('./aluno')
 
-// Relacionamento: Um Aluno pertence a uma Turma.
-Aluno.belongsTo(Turma, {
-  foreignKey: 'turmaId'
-});
+// Uma Turma tem vários Alunos
+Turma.hasMany(Aluno, { foreignKey: 'turma_id', onDelete: 'SET NULL' })
 
-// Exporta todos os modelos para serem usados em outros lugares
-export { Aluno, Turma, Usuario };
+// Um Aluno pertence a uma Turma
+Aluno.belongsTo(Turma, { foreignKey: 'turma_id' })
 
+module.exports = { Turma, Aluno }

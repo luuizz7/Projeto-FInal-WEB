@@ -1,57 +1,85 @@
-import bcrypt from 'bcrypt';
-import { Usuario } from '../models/associations.js';
+// controllers/authController.js
 
-export const showRegisterForm = (req, res) => {
-  res.render('auth/register', { title: 'Registrar', error: null });
-};
+const Usuario = require('../models/usuario')
+const bcrypt = require('bcrypt')
 
-export const register = async (req, res) => {
-  const { nome, email, senha } = req.body;
-  try {
-    const userExists = await Usuario.findOne({ where: { email } });
-    if (userExists) {
-      return res.render('auth/register', { title: 'Registrar', error: 'Email já cadastrado.' });
+module.exports = {
+
+    // mostrar tela de login
+    loginView: (req, res) => {
+        res.render('auth/login', { erro: null })
+    },
+
+    // mostrar tela de registro
+    registerView: (req, res) => {
+        res.render('auth/register', { erro: null })
+    },
+
+    // registrar usuario novo
+    register: async (req, res) => {
+        try {
+            const { nome, email, senha } = req.body
+
+            if (!nome || !email || !senha) {
+                return res.render('auth/register', { erro: 'Preencha todos os campos' })
+            }
+
+            // checando se o email já existe
+            const existente = await Usuario.findOne({ where: { email } })
+            if (existente) {
+                return res.render('auth/register', { erro: 'Email já cadastrado' })
+            }
+
+            const senhaCripto = await bcrypt.hash(senha, 10)
+
+            await Usuario.create({ nome, email, senha: senhaCripto })
+
+            // redireciona pro login
+            res.redirect('/auth/login')
+        } catch (err) {
+            console.log('Erro ao registrar usuário:', err)
+            res.render('auth/register', { erro: 'Erro ao registrar usuário' })
+        }
+    },
+
+    // fazer login
+    login: async (req, res) => {
+        try {
+            const { email, senha } = req.body
+
+            if (!email || !senha) {
+                return res.render('auth/login', { erro: 'Preencha todos os campos' })
+            }
+
+            const usuario = await Usuario.findOne({ where: { email } })
+
+            if (!usuario) {
+                return res.render('auth/login', { erro: 'Usuário não encontrado' })
+            }
+
+            const senhaValida = await bcrypt.compare(senha, usuario.senha)
+            if (!senhaValida) {
+                return res.render('auth/login', { erro: 'Senha incorreta' })
+            }
+
+            // salvando usuário na sessão
+            req.session.usuario = {
+                id: usuario.id,
+                nome: usuario.nome,
+                email: usuario.email
+            }
+
+            // redireciona pra página inicial
+            res.redirect('/')
+        } catch (err) {
+            console.log('Erro no login:', err)
+            res.render('auth/login', { erro: 'Erro ao fazer login' })
+        }
+    },
+
+    // logout
+    logout: (req, res) => {
+        req.session.destroy()
+        res.redirect('/auth/login')
     }
-    await Usuario.create({ nome, email, senha });
-    res.redirect('/auth/login');
-  } catch (error) {
-    res.render('auth/register', { title: 'Registrar', error: 'Erro ao criar usuário.' });
-  }
-};
-
-export const showLoginForm = (req, res) => {
-  res.render('auth/login', { title: 'Login', error: null });
-};
-
-export const login = async (req, res) => {
-  const { email, senha } = req.body;
-  try {
-    const usuario = await Usuario.findOne({ where: { email } });
-    if (!usuario) {
-      return res.render('auth/login', { title: 'Login', error: 'Usuário não encontrado.' });
-    }
-
-    const senhaValida = await bcrypt.compare(senha, usuario.senha);
-    if (!senhaValida) {
-      return res.render('auth/login', { title: 'Login', error: 'Senha incorreta.' });
-    }
-
-    // Salva na sessão
-    req.session.userId = usuario.id;
-    req.session.userName = usuario.nome;
-    res.redirect('/alunos'); // Redireciona para uma página principal após login
-
-  } catch (error) {
-    res.render('auth/login', { title: 'Login', error: 'Ocorreu um erro durante o login.' });
-  }
-};
-
-export const logout = (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      return res.redirect('/alunos'); // Ou outra página de erro
-    }
-    res.clearCookie('connect.sid'); // Limpa o cookie da sessão
-    res.redirect('/auth/login');
-  });
-};
+}

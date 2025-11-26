@@ -1,8 +1,13 @@
-import express from 'express';
-const router = express.Router();
+// rota da página inicial
+// só abre se o usuário estiver logado
 
-router.get('/', (req, res) => {
-  res.render('index', { title: 'Página Inicial' });
-});
+const express = require('express')
+const router = express.Router()
+const { checarLogin } = require('./middleware')
 
-export default router;
+router.get('/', checarLogin, (req, res) => {
+    // passa o usuario da sessão para o header
+    res.render('index', { usuario: req.session.usuario || null })
+})
+
+module.exports = router

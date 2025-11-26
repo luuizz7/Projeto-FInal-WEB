@@ -1,17 +1,16 @@
-import express from 'express';
-import * as alunoController from '../controllers/alunoController.js';
-import { isAuthenticated } from './middleware.js';
+// rotas de alunos (crud completo)
 
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const alunoController = require('../controllers/alunoController')
+const { checarLogin } = require('./middleware')
 
-// Todas as rotas de alunos agora exigem login
-router.use(isAuthenticated);
+router.get('/', checarLogin, alunoController.list)        
+router.get('/novo', checarLogin, alunoController.form)   
+router.post('/novo', checarLogin, alunoController.create) 
+router.get('/editar/:id', checarLogin, alunoController.editView) 
+router.post('/editar/:id', checarLogin, alunoController.update)
+router.get('/deletar/:id', checarLogin, alunoController.delete) 
 
-router.get('/', alunoController.listAlunos);
-router.get('/novo', alunoController.showCreateForm);
-router.post('/novo', alunoController.createAluno);
-router.get('/editar/:id', alunoController.showEditForm);
-router.post('/editar/:id', alunoController.updateAluno);
-router.post('/deletar/:id', alunoController.deleteAluno);
+module.exports = router
 
-export default router;

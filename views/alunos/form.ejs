@@ -1,63 +1,32 @@
 <%- include('../partials/header') %>
 
-<main class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
-                    <h2 class="card-title text-center mb-4"><%= title %></h2>
+<h2 class="text-center"><%= aluno ? "editar aluno" : "novo aluno" %></h2>
 
-                    <!-- Mensagem de erro que será preenchida pelo controller -->
-                    <% if (typeof error !== 'undefined' && error) { %>
-                        <div class="alert alert-danger" role="alert">
-                            <%= error %>
-                        </div>
-                    <% } %>
+<form action="<%= aluno ? '/alunos/editar/' + aluno.id : '/alunos/novo' %>" method="post">
 
-                    <form action="<%= aluno.id ? '/alunos/' + aluno.id + '?_method=PUT' : '/alunos' %>" method="POST">
-                        <div class="mb-3">
-                            <label for="nome" class="form-label">Nome Completo</label>
-                            <input type="text" class="form-control" id="nome" name="nome" value="<%= aluno.nome %>" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="matricula" class="form-label">Matrícula</label>
-                            <input type="text" class="form-control" id="matricula" name="matricula" value="<%= aluno.matricula %>" required <%= aluno.id ? 'readonly' : '' %>>
-                            <% if (aluno.id) { %>
-                                <div class="form-text">A matrícula não pode ser alterada.</div>
-                            <% } %>
-                        </div>
-
-                        <!-- LÓGICA MELHORADA AQUI -->
-                        <% if (turmas.length > 0) { %>
-                            <div class="mb-3">
-                                <label for="turmaId" class="form-label">Turma</label>
-                                <select class="form-select" id="turmaId" name="turmaId" required>
-                                    <option value="" disabled <%= !aluno.id ? 'selected' : '' %>>Selecione uma turma</option>
-                                    <% turmas.forEach(turma => { %>
-                                        <option value="<%= turma.id %>" <%= aluno.turmaId == turma.id ? 'selected' : '' %>>
-                                            <%= turma.nome %>
-                                        </option>
-                                    <% }); %>
-                                </select>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-block">Salvar</button>
-                            </div>
-                        <% } else { %>
-                            <div class="alert alert-warning" role="alert">
-                                <strong>Atenção!</strong> Não há turmas cadastradas. Por favor, <a href="/turmas/novo">crie uma turma</a> antes de cadastrar um aluno.
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-block" disabled>Salvar</button>
-                            </div>
-                        <% } %>
-                        <!-- FIM DA LÓGICA MELHORADA -->
-
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="mb-3">
+        <label>nome</label>
+        <input class="form-control" type="text" name="nome" value="<%= aluno ? aluno.nome : '' %>" required>
     </div>
-</main>
+
+    <div class="mb-3">
+        <label>email</label>
+        <input class="form-control" type="email" name="email" value="<%= aluno ? aluno.email : '' %>" required>
+    </div>
+
+    <div class="mb-3">
+        <label>turma</label>
+        <select name="turma_id" class="form-control">
+            <% turmas.forEach(t => { %>
+                <option value="<%= t.id %>" <%= aluno && aluno.turma_id === t.id ? 'selected' : '' %>>
+                    <%= t.nome %>
+                </option>
+            <% }) %>
+        </select>
+    </div>
+
+    <button class="btn btn-success w-100"><%= aluno ? "atualizar" : "salvar" %></button>
+
+</form>
 
 <%- include('../partials/footer') %>
