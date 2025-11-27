@@ -2,9 +2,8 @@
 
 <h2 class="text-center"><%= turma ? "Editar Turma" : "Nova Turma" %></h2>
 
-<form action="<%= turma ? '/turmas/update/' + turma.id : '/turmas/create' %>" method="post">
+<form action="<%= turma ? '/turmas/editar/' + turma.id : '/turmas/novo' %>" method="post">
 
-    <!-- Nome -->
     <div class="mb-3">
         <label for="nome">Nome da Turma</label>
         <input 
@@ -12,31 +11,19 @@
             type="text" 
             class="form-control" 
             name="nome" 
-            value="<%= turma ? turma.nome : '' %>" 
+            value="<%= turma ? turma.nome : '' %>"
             required
         >
     </div>
 
-    <!-- Turno -->
     <div class="mb-3">
         <label for="turno">Turno</label>
         <select name="turno" id="turno" class="form-control" required>
             <option value="">Selecione...</option>
 
-            <option value="Matutino"
-                <%= turma && turma.turno === "Matutino" ? "selected" : "" %>>
-                Matutino
-            </option>
-
-            <option value="Vespertino"
-                <%= turma && turma.turno === "Vespertino" ? "selected" : "" %>>
-                Vespertino
-            </option>
-
-            <option value="Noturno"
-                <%= turma && turma.turno === "Noturno" ? "selected" : "" %>>
-                Noturno
-            </option>
+            <option value="Matutino" <%= turma && turma.turno === "Matutino" ? 'selected' : '' %>>Matutino</option>
+            <option value="Vespertino" <%= turma && turma.turno === "Vespertino" ? 'selected' : '' %>>Vespertino</option>
+            <option value="Noturno" <%= turma && turma.turno === "Noturno" ? 'selected' : '' %>>Noturno</option>
         </select>
     </div>
 

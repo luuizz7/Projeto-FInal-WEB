@@ -2,9 +2,8 @@
 
 <h2 class="text-center"><%= aluno ? "Editar Aluno" : "Novo Aluno" %></h2>
 
-<form action="<%= aluno ? '/alunos/update/' + aluno.id : '/alunos/create' %>" method="post">
+<form action="<%= aluno ? '/alunos/editar/' + aluno.id : '/alunos/novo' %>" method="post">
 
-    <!-- NOME -->
     <div class="mb-3">
         <label for="nome">Nome do aluno</label>
         <input 
@@ -17,7 +16,6 @@
         >
     </div>
 
-    <!-- EMAIL -->
     <div class="mb-3">
         <label for="email">Email</label>
         <input 
@@ -29,7 +27,6 @@
         >
     </div>
 
-    <!-- TURMA (SELECT / FK) -->
     <div class="mb-3">
         <label for="turmaId">Turma</label>
         <select id="turmaId" class="form-control" name="turmaId" required>

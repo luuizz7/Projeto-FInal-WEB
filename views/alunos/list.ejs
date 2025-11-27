@@ -2,7 +2,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h2 class="m-0">Lista de Alunos</h2>
-  <a href="/alunos/form" class="btn btn-primary btn-create">Novo Aluno</a>
+  <a href="/alunos/novo" class="btn btn-primary btn-create">Novo Aluno</a>
 </div>
 
 <div class="table-container">
@@ -23,8 +23,8 @@
             <td><%= aluno.email %></td>
             <td><%= aluno.turma ? aluno.turma.nome : '—' %></td>
             <td>
-              <a href="/alunos/edit/<%= aluno.id %>" class="btn btn-edit btn-sm">Editar</a>
-              <a href="/alunos/delete/<%= aluno.id %>" class="btn btn-delete btn-sm">Excluir</a>
+              <a href="/alunos/editar/<%= aluno.id %>" class="btn btn-edit btn-sm">Editar</a>
+              <a href="/alunos/deletar/<%= aluno.id %>" class="btn btn-delete btn-sm">Excluir</a>
             </td>
           </tr>
         <% }) %>
