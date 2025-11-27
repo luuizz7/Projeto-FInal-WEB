@@ -1,39 +1,40 @@
 <%- include('../partials/header') %>
 
-<h2>Lista de Alunos</h2>
-
-<a href="/alunos/form" class="btn btn-create">Novo Aluno</a>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="m-0">Lista de Alunos</h2>
+  <a href="/alunos/form" class="btn btn-primary btn-create">Novo Aluno</a>
+</div>
 
 <div class="table-container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Turma</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% if (alunos && alunos.length > 0) { %>
-                <% alunos.forEach(aluno => { %>
-                    <tr>
-                        <td><%= aluno.nome %></td>
-                        <td><%= aluno.email %></td>
-                        <td><%= aluno.turma ? aluno.turma.nome : '—' %></td>
-                        <td>
-                            <a href="/alunos/edit/<%= aluno.id %>" class="btn btn-edit">Editar</a>
-                            <a href="/alunos/delete/<%= aluno.id %>" class="btn btn-delete">Excluir</a>
-                        </td>
-                    </tr>
-                <% }) %>
-            <% } else { %>
-                <tr>
-                    <td colspan="4" class="text-center">Nenhum aluno encontrado.</td>
-                </tr>
-            <% } %>
-        </tbody>
-    </table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Turma</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (alunos && alunos.length > 0) { %>
+        <% alunos.forEach(aluno => { %>
+          <tr>
+            <td><%= aluno.nome %></td>
+            <td><%= aluno.email %></td>
+            <td><%= aluno.turma ? aluno.turma.nome : '—' %></td>
+            <td>
+              <a href="/alunos/edit/<%= aluno.id %>" class="btn btn-edit btn-sm">Editar</a>
+              <a href="/alunos/delete/<%= aluno.id %>" class="btn btn-delete btn-sm">Excluir</a>
+            </td>
+          </tr>
+        <% }) %>
+      <% } else { %>
+        <tr>
+          <td colspan="4" class="text-center">Nenhum aluno encontrado.</td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
 </div>
 
 <%- include('../partials/footer') %>
