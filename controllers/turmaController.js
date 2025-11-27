@@ -1,43 +1,65 @@
-const Turma = require('../models/turma')
-const Aluno = require('../models/aluno')
+const Turma = require('../models/turma');
+const Aluno = require('../models/aluno');
 
 module.exports = {
 
+    // Listar turmas
     list: async (req, res) => {
-        const turmas = await Turma.findAll()
-        res.render('turmas/list', { turmas })
+        const turmas = await Turma.findAll({
+            include: {
+                model: Aluno,
+                as: "alunos"
+            }
+        });
+
+        res.render('turmas/list', { turmas });
     },
 
+    // Formulário de criação
     form: (req, res) => {
-        res.render('turmas/form', { turma: null })
+        res.render('turmas/form', { turma: null });
     },
 
+    // Criar turma
     create: async (req, res) => {
-        const { nome, turno } = req.body
-        await Turma.create({ nome, turno })
-        res.redirect('/turmas')
+        const { nome, turno } = req.body;
+
+        await Turma.create({ nome, turno });
+
+        res.redirect('/turmas');
     },
 
+    // Formulário de edição
     editView: async (req, res) => {
-        const { id } = req.params
-        const turma = await Turma.findByPk(id)
-        res.render('turmas/form', { turma })
+        const { id } = req.params;
+
+        const turma = await Turma.findByPk(id);
+
+        res.render('turmas/form', { turma });
     },
 
+    // Atualizar turma
     update: async (req, res) => {
-        const { id } = req.params
-        const { nome, turno } = req.body
-        await Turma.update({ nome, turno }, { where: { id } })
-        res.redirect('/turmas')
+        const { id } = req.params;
+        const { nome, turno } = req.body;
+
+        await Turma.update(
+            { nome, turno },
+            { where: { id } }
+        );
+
+        res.redirect('/turmas');
     },
 
+    // Deletar turma
     delete: async (req, res) => {
-        const { id } = req.params
+        const { id } = req.params;
+
         try {
-            await Turma.destroy({ where: { id } })
-            res.redirect('/turmas')
+            await Turma.destroy({ where: { id } });
+            res.redirect('/turmas');
         } catch (err) {
-            res.send("não pode apagar turma porque existe aluno nela")
+            res.send("Não é possível apagar a turma porque existem alunos vinculados.");
         }
     }
-}
+};

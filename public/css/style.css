@@ -1,7 +1,7 @@
 /* links gerais */
 a {
-    color: #000 !important;        /* preto */
-    text-decoration: underline;    /* mostrar que é link */
+    color: #000 !important;
+    text-decoration: underline;
 }
 
 /* container da home */
@@ -27,7 +27,7 @@ a {
     gap: 25px;
 }
 
-/* card - LINK */
+/* cards */
 .home-card {
     background: #fff;
     padding: 25px;
@@ -36,28 +36,22 @@ a {
     display: block;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     transition: .2s;
-
-    /* IMPORTANTE: sem underline no bloco */
     text-decoration: none !important;
 }
 
-/* texto dentro do card - underline visível */
 .home-card h3,
 .home-card p {
     color: #000 !important;
     text-decoration: underline;
-    text-decoration-color: black;
     text-underline-offset: 4px;
     text-decoration-thickness: 2px;
 }
 
-/* hover */
 .home-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
 
-/* hover destacando underline */
 .home-card:hover h3,
 .home-card:hover p {
     text-decoration-thickness: 3px;
@@ -77,21 +71,122 @@ a {
     margin-bottom: 10px;
 }
 
-/* seção info extra */
+/* info section */
 .info-section {
     background: #f7f7f7;
     padding: 30px;
     border-radius: 12px;
 }
 
-/* headings pretas */
+/* headings */
 h1, h2, h3, h4, h5, h6 {
     color: #000 !important;
 }
 
-/* navbar links */
+/* navbar */
 .navbar a {
-    text-decoration: none !important; /* navbar sem underline */
+    text-decoration: none !important;
     color: #fff !important;
 }
 
+/* ===================== */
+/*        TABELAS        */
+/* ===================== */
+
+.table-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table thead {
+    background: #000;
+    color: #fff;
+}
+
+table thead th {
+    padding: 14px;
+    font-weight: bold;
+    text-align: left;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:hover {
+    background: #f1f1f1;
+}
+
+table tbody td {
+    padding: 12px;
+}
+
+/* botões */
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.btn-edit {
+    background: #ffc107;
+    color: #000 !important;
+}
+
+.btn-edit:hover {
+    background: #e0a800;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: #fff !important;
+}
+
+.btn-delete:hover {
+    background: #bb2d3b;
+}
+
+.btn-create {
+    background: #198754;
+    color: #fff !important;
+    margin-bottom: 20px;
+}
+
+.btn-create:hover {
+    background: #157347;
+}
+
+/* Reset leve para links */
+a {
+    text-decoration: none !important;
+}
+
+/* Títulos */
+h2 {
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Tabela */
+.table th {
+    text-transform: capitalize;
+    font-weight: 600;
+}
+
+/* Link "Novo aluno" */
+.btn-primary {
+    text-transform: uppercase;
+    font-weight: 600;
+}

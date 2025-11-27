@@ -1,35 +1,39 @@
+<%- include('../partials/header') %>
 
+<h2>Lista de Alunos</h2>
 
-<h2 class="text-center">lista de alunos</h2>
+<a href="/alunos/form" class="btn btn-create">Novo Aluno</a>
 
-<a href="/alunos/novo" class="btn btn-primary mb-3">novo aluno</a>
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>nome</th>
-            <th>email</th>
-            <th>turma</th>
-            <th>acoes</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <% alunos.forEach(a => { %>
+<div class="table-container">
+    <table class="table">
+        <thead>
             <tr>
-                <td><%= a.id %></td>
-                <td><%= a.nome %></td>
-                <td><%= a.email %></td>
-                <td><%= a.turma ? a.turma.nome : 'sem turma' %></td>
-
-                <td>
-                    <a href="/alunos/editar/<%= a.id %>" class="btn btn-warning btn-sm">editar</a>
-                    <a href="/alunos/deletar/<%= a.id %>" class="btn btn-danger btn-sm">deletar</a>
-                </td>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Turma</th>
+                <th>Ações</th>
             </tr>
-        <% }) %>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <% if (alunos && alunos.length > 0) { %>
+                <% alunos.forEach(aluno => { %>
+                    <tr>
+                        <td><%= aluno.nome %></td>
+                        <td><%= aluno.email %></td>
+                        <td><%= aluno.turma ? aluno.turma.nome : '—' %></td>
+                        <td>
+                            <a href="/alunos/edit/<%= aluno.id %>" class="btn btn-edit">Editar</a>
+                            <a href="/alunos/delete/<%= aluno.id %>" class="btn btn-delete">Excluir</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4" class="text-center">Nenhum aluno encontrado.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
 
 <%- include('../partials/footer') %>

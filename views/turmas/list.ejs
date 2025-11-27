@@ -1,29 +1,39 @@
 <%- include('../partials/header') %>
 
 <div class="container">
-    <h1>Lista de Turmas</h1>
 
-    <a href="/turmas/novo" class="btn btn-primary">Nova Turma</a>
+    <h2 class="mb-3">Lista de Turmas</h2>
 
-    <table class="table mt-3">
+    <a href="/turmas/form" class="btn btn-primary mb-3">Nova Turma</a>
+
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
+                <th>Turno</th>
                 <th>Ações</th>
             </tr>
         </thead>
+
         <tbody>
-            <% turmas.forEach(turma => { %>
-            <tr>
-                <td><%= turma.id %></td>
-                <td><%= turma.nome %></td>
-                <td>
-                    <a href="/turmas/editar/<%= turma.id %>" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="/turmas/deletar/<%= turma.id %>" class="btn btn-danger btn-sm">Excluir</a>
-                </td>
-            </tr>
-            <% }) %>
+            <% if (turmas && turmas.length > 0) { %>
+                <% turmas.forEach(turma => { %>
+                    <tr>
+                        <td><%= turma.id %></td>
+                        <td><%= turma.nome %></td>
+                        <td><%= turma.turno %></td>
+                        <td>
+                            <a href="/turmas/edit/<%= turma.id %>" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="/turmas/delete/<%= turma.id %>" class="btn btn-danger btn-sm">Excluir</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4" class="text-center">Nenhuma turma encontrada.</td>
+                </tr>
+            <% } %>
         </tbody>
     </table>
 

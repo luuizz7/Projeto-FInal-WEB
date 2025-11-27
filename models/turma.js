@@ -1,7 +1,5 @@
-// models/turma.js
-
-const { DataTypes } = require('sequelize')
-const sequelize = require('../config/database')
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
 const Turma = sequelize.define('Turma', {
     id: {
@@ -15,12 +13,14 @@ const Turma = sequelize.define('Turma', {
     },
     turno: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        validate: {
+            isIn: [['Matutino', 'Vespertino', 'Noturno']]
+        }
     }
 }, {
-    tableName: "Turmas",
     timestamps: true,
     freezeTableName: true
-})
+});
 
-module.exports = Turma
+module.exports = Turma;

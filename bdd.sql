@@ -1,6 +1,6 @@
--- ============================
+-- ===================================
 -- TABELA DE USUÁRIOS (LOGIN)
--- ============================
+-- ===================================
 CREATE TABLE IF NOT EXISTS "Usuarios" (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -10,9 +10,9 @@ CREATE TABLE IF NOT EXISTS "Usuarios" (
     "updatedAt" TIMESTAMP DEFAULT NOW()
 );
 
--- ============================
--- TABELA DE TURMAS
--- ============================
+-- ===================================
+-- TABELA DE TURMAS (COMPATÍVEL COM O MODEL)
+-- ===================================
 CREATE TABLE IF NOT EXISTS "Turmas" (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -21,14 +21,18 @@ CREATE TABLE IF NOT EXISTS "Turmas" (
     "updatedAt" TIMESTAMP DEFAULT NOW()
 );
 
--- ============================
--- TABELA DE ALUNOS
--- ============================
+-- ===================================
+-- TABELA DE ALUNOS (COMPATÍVEL COM O ASSOCIATE)
+-- ===================================
 CREATE TABLE IF NOT EXISTS "Alunos" (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(150),
-    turmaId INT REFERENCES "Turmas"(id) ON DELETE RESTRICT,
+    turmaId INT,
     "createdAt" TIMESTAMP DEFAULT NOW(),
-    "updatedAt" TIMESTAMP DEFAULT NOW()
+    "updatedAt" TIMESTAMP DEFAULT NOW(),
+    CONSTRAINT fk_turma
+        FOREIGN KEY (turmaId)
+        REFERENCES "Turmas"(id)
+        ON DELETE SET NULL
 );

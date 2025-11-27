@@ -1,17 +1,26 @@
 <%- include('../partials/header') %>
 
-<h2 class="text-center"><%= turma ? "editar turma" : "nova turma" %></h2>
+<h2 class="text-center"><%= turma ? "Editar Turma" : "Nova Turma" %></h2>
 
-<form action="<%= turma ? '/turmas/editar/' + turma.id : '/turmas/novo' %>" method="post">
+<form action="<%= turma ? '/turmas/update/' + turma.id : '/turmas/create' %>" method="post">
 
+    <!-- Nome -->
     <div class="mb-3">
-        <label>nome</label>
-        <input type="text" class="form-control" name="nome" value="<%= turma ? turma.nome : '' %>" required>
+        <label for="nome">Nome da Turma</label>
+        <input 
+            id="nome"
+            type="text" 
+            class="form-control" 
+            name="nome" 
+            value="<%= turma ? turma.nome : '' %>" 
+            required
+        >
     </div>
 
+    <!-- Turno -->
     <div class="mb-3">
-        <label>Turno</label>
-        <select name="turno" class="form-control" required>
+        <label for="turno">Turno</label>
+        <select name="turno" id="turno" class="form-control" required>
             <option value="">Selecione...</option>
 
             <option value="Matutino"
@@ -31,7 +40,9 @@
         </select>
     </div>
 
-    <button class="btn btn-success w-100"><%= turma ? "atualizar" : "salvar" %></button>
+    <button class="btn btn-success w-100">
+        <%= turma ? "Atualizar" : "Salvar" %>
+    </button>
 
 </form>
 

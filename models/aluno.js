@@ -1,7 +1,7 @@
-// models/aluno.js
+// models/Aluno.js
 
-const { DataTypes } = require('sequelize')
-const sequelize = require('../config/database')
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
 const Aluno = sequelize.define('Aluno', {
     id: {
@@ -17,7 +17,7 @@ const Aluno = sequelize.define('Aluno', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    turmaId: {                  // nome CERTO da coluna no banco
+    turmaId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
@@ -27,8 +27,8 @@ const Aluno = sequelize.define('Aluno', {
         onDelete: 'SET NULL'
     }
 }, {
-    timestamps: true,
-    freezeTableName: true
-})
+    freezeTableName: true,
+    timestamps: true
+});
 
-module.exports = Aluno
+module.exports = Aluno;

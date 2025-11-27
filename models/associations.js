@@ -1,13 +1,16 @@
-const Turma = require('./turma')
-const Aluno = require('./aluno')
+const Turma = require("./turma");
+const Aluno = require("./aluno");
 
+// turma pode ter varios alunos
 Turma.hasMany(Aluno, {
-    foreignKey: 'turma_id',  
-    onDelete: 'SET NULL'
-})
+    foreignKey: "turmaId",
+    as: "alunos"
+});
 
+// aluno pertence a 1 turma
 Aluno.belongsTo(Turma, {
-    foreignKey: 'turma_id'
-})
+    foreignKey: "turmaId",
+    as: "turma"
+});
 
-module.exports = { Turma, Aluno }
+module.exports = { Turma, Aluno };
