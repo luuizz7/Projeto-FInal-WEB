@@ -1,38 +1,45 @@
 -- ===================================
+-- DROP DAS TABELAS ANTIGAS
+-- ===================================
+DROP TABLE IF EXISTS alunos CASCADE;
+DROP TABLE IF EXISTS turmas CASCADE;
+DROP TABLE IF EXISTS usuarios CASCADE;
+
+-- ===================================
 -- TABELA DE USUÁRIOS (LOGIN)
 -- ===================================
-CREATE TABLE IF NOT EXISTS "Usuarios" (
+CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMP DEFAULT NOW(),
-    "updatedAt" TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
 );
 
 -- ===================================
--- TABELA DE TURMAS (COMPATÍVEL COM O MODEL)
+-- TABELA DE TURMAS
 -- ===================================
-CREATE TABLE IF NOT EXISTS "Turmas" (
+CREATE TABLE turmas (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     turno VARCHAR(50),
-    "createdAt" TIMESTAMP DEFAULT NOW(),
-    "updatedAt" TIMESTAMP DEFAULT NOW()
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
 );
 
 -- ===================================
--- TABELA DE ALUNOS (COMPATÍVEL COM O ASSOCIATE)
+-- TABELA DE ALUNOS
 -- ===================================
-CREATE TABLE IF NOT EXISTS "Alunos" (
+CREATE TABLE alunos (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(150),
-    turmaId INT,
-    "createdAt" TIMESTAMP DEFAULT NOW(),
-    "updatedAt" TIMESTAMP DEFAULT NOW(),
+    turma_id INT,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW(),
     CONSTRAINT fk_turma
-        FOREIGN KEY (turmaId)
-        REFERENCES "Turmas"(id)
+        FOREIGN KEY (turma_id)
+        REFERENCES turmas(id)
         ON DELETE SET NULL
 );
