@@ -17,6 +17,7 @@ module.exports = {
 
     // Formulário de criação
     form: (req, res) => {
+        // CORREÇÃO: use o form.ejs
         res.render('turmas/form', { turma: null });
     },
 
