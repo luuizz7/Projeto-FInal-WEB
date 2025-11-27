@@ -1,31 +1,24 @@
 <%- include('../partials/header') %>
 
-<h2 class="text-center"><%= aluno ? "editar aluno" : "novo aluno" %></h2>
+<h2 class="text-center"><%= turma ? "Editar Turma" : "Nova Turma" %></h2>
 
-<form action="<%= aluno ? '/alunos/editar/' + aluno.id : '/alunos/novo' %>" method="post">
-
-    <div class="mb-3">
-        <label>nome</label>
-        <input class="form-control" type="text" name="nome" value="<%= aluno ? aluno.nome : '' %>" required>
-    </div>
+<form action="<%= turma ? '/turmas/editar/' + turma.id : '/turmas/nova' %>" method="post">
 
     <div class="mb-3">
-        <label>email</label>
-        <input class="form-control" type="email" name="email" value="<%= aluno ? aluno.email : '' %>" required>
+        <label for="nome">Nome da turma</label>
+        <input 
+            id="nome"
+            class="form-control"
+            type="text"
+            name="nome"
+            value="<%= turma ? turma.nome : '' %>"
+            required
+        >
     </div>
 
-    <div class="mb-3">
-        <label>turma</label>
-        <select name="turma_id" class="form-control">
-            <% turmas.forEach(t => { %>
-                <option value="<%= t.id %>" <%= aluno && aluno.turma_id === t.id ? 'selected' : '' %>>
-                    <%= t.nome %>
-                </option>
-            <% }) %>
-        </select>
-    </div>
-
-    <button class="btn btn-success w-100"><%= aluno ? "atualizar" : "salvar" %></button>
+    <button class="btn btn-success w-100">
+        <%= turma ? "Atualizar" : "Salvar" %>
+    </button>
 
 </form>
 

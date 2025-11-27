@@ -1,9 +1,36 @@
-<!-- mano essa e a home da aplicacao -->
-<%- include('./partials/header') %>
+<%- include('partials/header', { usuario: usuario }) %>
 
-<div class="container mt-4">
-    <h2>bem vindo ao sistema alunos e turmas</h2>
-    <p>use o menu ali em cima pra navegar</p>
+<div class="container home-container">
+
+    <!-- Boas-vindas -->
+    <section class="welcome-box">
+        <h1>Bem-vindo, <%= usuario.nome %> 👋</h1>
+        <p>Gerencie alunos e turmas de forma rápida, simples e intuitiva.</p>
+    </section>
+
+    <!-- Cards principais -->
+    <section class="cards-grid">
+
+        <a href="/alunos" class="home-card">
+            <div class="card-icon">👨‍🎓</div>
+            <h3>Alunos</h3>
+            <p>Acesse o cadastro completo de alunos.</p>
+        </a>
+
+        <a href="/turmas" class="home-card">
+            <div class="card-icon">🏫</div>
+            <h3>Turmas</h3>
+            <p>Gerencie turmas e organize alunos.</p>
+        </a>
+
+        <a href="/auth/logout" class="home-card card-red">
+            <div class="card-icon">🚪</div>
+            <h3>Sair</h3>
+            <p>Encerrar sessão.</p>
+        </a>
+
+    </section>
+
 </div>
 
-<%- include('./partials/footer') %>
+<%- include('partials/footer') %>

@@ -1,11 +1,11 @@
-//  middleware so deixa entrar na rota se o user tiver logado
+// middleware só deixa entrar na rota se o user tiver logado
 
 function checarLogin(req, res, next) {
-    if (req.session && req.session.usuarioId) {
-        return next()
+    if (req.session && req.session.usuario) {
+        return next();
     } else {
-        return res.redirect('/login')
+        return res.redirect('/auth/login');
     }
 }
 
-module.exports = { checarLogin }
+module.exports = { checarLogin };

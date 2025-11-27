@@ -7,6 +7,11 @@ const sequelize = require("./config/database")
 
 const app = express()
 
+// === IMPORTANTE: carregar models e associações ===
+require("./models/turma")
+require("./models/aluno")
+require("./models/associations")   // <-- ESSENCIAL
+
 // config de sessao pra login
 app.use(
     session({

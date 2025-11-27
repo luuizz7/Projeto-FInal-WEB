@@ -9,6 +9,28 @@
         <input type="text" class="form-control" name="nome" value="<%= turma ? turma.nome : '' %>" required>
     </div>
 
+    <div class="mb-3">
+        <label>Turno</label>
+        <select name="turno" class="form-control" required>
+            <option value="">Selecione...</option>
+
+            <option value="Matutino"
+                <%= turma && turma.turno === "Matutino" ? "selected" : "" %>>
+                Matutino
+            </option>
+
+            <option value="Vespertino"
+                <%= turma && turma.turno === "Vespertino" ? "selected" : "" %>>
+                Vespertino
+            </option>
+
+            <option value="Noturno"
+                <%= turma && turma.turno === "Noturno" ? "selected" : "" %>>
+                Noturno
+            </option>
+        </select>
+    </div>
+
     <button class="btn btn-success w-100"><%= turma ? "atualizar" : "salvar" %></button>
 
 </form>

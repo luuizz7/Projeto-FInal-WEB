@@ -1,6 +1,4 @@
-// model de turma
-// turma tem nome
-// aluno vai ter chave estrangeira pra turma, então isso vai ser usado no relacionamento
+// models/turma.js
 
 const { DataTypes } = require('sequelize')
 const sequelize = require('../config/database')
@@ -20,8 +18,9 @@ const Turma = sequelize.define('Turma', {
         allowNull: true
     }
 }, {
-    timestamps: true,   // cria created_at e updated_at
-    underscored: true   // usa snake_case
+    tableName: "Turmas",
+    timestamps: true,
+    freezeTableName: true
 })
 
 module.exports = Turma
