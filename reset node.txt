@@ -1,0 +1,6 @@
+
+apagar packagelock e nodemodules
+del package-lock.json
+rmdir node_modules -Recurse -Force
+
+

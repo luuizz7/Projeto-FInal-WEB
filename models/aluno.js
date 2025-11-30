@@ -1,5 +1,3 @@
-// models/Aluno.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -21,13 +19,14 @@ const Aluno = sequelize.define('Aluno', {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
-            model: 'Turmas',
+            model: 'Turma', 
             key: 'id'
         },
         onDelete: 'SET NULL'
     }
 }, {
-    freezeTableName: true,
+    freezeTableName: true, 
+    underscored: false,
     timestamps: true
 });
 

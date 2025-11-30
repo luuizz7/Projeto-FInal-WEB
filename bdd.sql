@@ -1,13 +1,13 @@
--- ===================================
+
 -- DROP DAS TABELAS ANTIGAS
--- ===================================
+
 DROP TABLE IF EXISTS alunos CASCADE;
 DROP TABLE IF EXISTS turmas CASCADE;
 DROP TABLE IF EXISTS usuarios CASCADE;
 
--- ===================================
+
 -- TABELA DE USUÁRIOS (LOGIN)
--- ===================================
+
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -17,9 +17,9 @@ CREATE TABLE usuarios (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- ===================================
+
 -- TABELA DE TURMAS
--- ===================================
+
 CREATE TABLE turmas (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -28,9 +28,9 @@ CREATE TABLE turmas (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
--- ===================================
+
 -- TABELA DE ALUNOS
--- ===================================
+
 CREATE TABLE alunos (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,

@@ -19,8 +19,8 @@ const Turma = sequelize.define('Turma', {
         }
     }
 }, {
-    timestamps: true,
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: true
 });
 
 module.exports = Turma;

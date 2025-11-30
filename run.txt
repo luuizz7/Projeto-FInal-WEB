@@ -1,2 +1,0 @@
-run project
-node server.js
