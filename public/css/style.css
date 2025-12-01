@@ -1,17 +1,66 @@
+/* grid responsivo */
+/* grid de 12 colunas que funciona em todas as telas */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 20px;
+}
+
+/* colunas base */
+[class^="col-"] {
+    flex: 1 0 0;
+}
+
+/* desktop */
+/* cada col ocupa parte da linha */
+.col-1  { flex-basis: 8.33%; }
+.col-2  { flex-basis: 16.66%; }
+.col-3  { flex-basis: 25%; }
+.col-4  { flex-basis: 33.33%; }
+.col-5  { flex-basis: 41.66%; }
+.col-6  { flex-basis: 50%; }
+.col-7  { flex-basis: 58.33%; }
+.col-8  { flex-basis: 66.66%; }
+.col-9  { flex-basis: 75%; }
+.col-10 { flex-basis: 83.33%; }
+.col-11 { flex-basis: 91.66%; }
+.col-12 { flex-basis: 100%; }
+
+/* tablet */
+/* reduz coluna em telas medias */
+@media (max-width: 900px) {
+    .col-md-12 { flex-basis: 100% !important; }
+    .col-md-6  { flex-basis: 50% !important; }
+    .col-md-4  { flex-basis: 33% !important; }
+    .col-md-3  { flex-basis: 25% !important; }
+}
+
+/* mobile */
+/* tudo vira coluna inteira */
+@media (max-width: 600px) {
+    [class^="col-"], [class*=" col-"] {
+        flex-basis: 100% !important;
+    }
+}
+
 /* links gerais */
+/* deixa link preto e sublinhado */
 a {
     color: #000 !important;
     text-decoration: underline;
 }
 
-/* container da home */
+/* home container */
+/* ajuste das margens principais */
 .home-container {
     padding: 40px 20px;
     max-width: 1100px;
     margin: auto;
 }
 
-/* boas-vindas */
+/* caixa de boas vindas */
+/* fundo cinza claro */
 .welcome-box {
     background: #f1f1f1;
     padding: 30px;
@@ -20,7 +69,8 @@ a {
     margin-bottom: 40px;
 }
 
-/* grid */
+/* grid dos cards */
+/* responsivo automatico */
 .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -28,6 +78,7 @@ a {
 }
 
 /* cards */
+/* bloco branco com sombra */
 .home-card {
     background: #fff;
     padding: 25px;
@@ -47,11 +98,13 @@ a {
     text-decoration-thickness: 2px;
 }
 
+/* hover card */
 .home-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 6px 18px rgba(0,0,0,0.15);
 }
 
+/* hover texto card */
 .home-card:hover h3,
 .home-card:hover p {
     text-decoration-thickness: 3px;
@@ -65,34 +118,34 @@ a {
     background: #ffbcbc;
 }
 
-/* ícone */
+/* icone do card */
 .card-icon {
     font-size: 50px;
     margin-bottom: 10px;
 }
 
-/* info section */
+/* secao informativa */
 .info-section {
     background: #f7f7f7;
     padding: 30px;
     border-radius: 12px;
 }
 
-/* headings */
+/* titulos */
+/* deixa todos pretos */
 h1, h2, h3, h4, h5, h6 {
     color: #000 !important;
 }
 
 /* navbar */
+/* links da navbar brancos */
 .navbar a {
     text-decoration: none !important;
     color: #fff !important;
 }
 
-/* ===================== */
-/*        TABELAS        */
-/* ===================== */
-
+/* tabela */
+/* container da tabela */
 .table-container {
     max-width: 1100px;
     margin: 40px auto;
@@ -102,11 +155,13 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
+/* tabela estrutura */
 table {
     width: 100%;
     border-collapse: collapse;
 }
 
+/* cabecalho escuro */
 table thead {
     background: #000;
     color: #fff;
@@ -118,10 +173,12 @@ table thead th {
     text-align: left;
 }
 
+/* linhas */
 table tbody tr {
     border-bottom: 1px solid #ddd;
 }
 
+/* hover linha */
 table tbody tr:hover {
     background: #f1f1f1;
 }
@@ -130,7 +187,8 @@ table tbody td {
     padding: 12px;
 }
 
-/* botões */
+/* botoes */
+/* estilo base */
 .btn {
     padding: 8px 14px;
     border-radius: 6px;
@@ -139,53 +197,63 @@ table tbody td {
     transition: .2s;
 }
 
+/* botao voltar */
+/* cinza igual exemplo */
+.btn-back {
+    background: #6c757d;
+    color: #fff !important;
+}
+.btn-back:hover {
+    background: #5a6268;
+}
+
+/* botao editar */
 .btn-edit {
     background: #ffc107;
     color: #000 !important;
 }
-
 .btn-edit:hover {
     background: #e0a800;
 }
 
+/* botao deletar */
 .btn-delete {
     background: #dc3545;
     color: #fff !important;
 }
-
 .btn-delete:hover {
     background: #bb2d3b;
 }
 
+/* botao criar */
 .btn-create {
     background: #198754;
     color: #fff !important;
     margin-bottom: 20px;
 }
-
 .btn-create:hover {
     background: #157347;
 }
 
-/* Reset leve para links */
+/* reset leve link */
 a {
     text-decoration: none !important;
 }
 
-/* Títulos */
+/* titulos */
 h2 {
     text-transform: uppercase;
     font-weight: 700;
     margin-bottom: 20px;
 }
 
-/* Tabela */
+/* cabecalho tabela */
 .table th {
     text-transform: capitalize;
     font-weight: 600;
 }
 
-/* Link "Novo aluno" */
+/* botao primario */
 .btn-primary {
     text-transform: uppercase;
     font-weight: 600;
