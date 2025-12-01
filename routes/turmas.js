@@ -12,4 +12,6 @@ router.post('/editar/:id', checarLogin, turmaController.update)
 
 router.get('/deletar/:id', checarLogin, turmaController.delete)
 
+router.get('/:id/alunos', checarLogin, turmaController.listarAlunos)
+
 module.exports = router

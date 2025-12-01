@@ -1,8 +1,6 @@
-
-
-
-
 <%- include('../partials/header') %>
+
+
 
 <div class="container">
 
@@ -28,6 +26,7 @@
                         <td><%= turma.nome %></td>
                         <td><%= turma.turno %></td>
                         <td>
+                            <a href="/turmas/<%= turma.id %>/alunos" class="btn btn-info btn-sm">Ver Alunos</a>
                             <a href="/turmas/editar/<%= turma.id %>" class="btn btn-warning btn-sm">Editar</a>
                             <a href="/turmas/deletar/<%= turma.id %>" class="btn btn-danger btn-sm">Excluir</a>
                         </td>

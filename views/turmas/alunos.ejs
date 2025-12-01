@@ -1,0 +1,34 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3">
+    Lista de Alunos da Turma: <%= turma.nome %>
+</h2>
+
+<a href="/turmas" class="btn btn-secondary mb-3">Voltar</a>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% if (turma.alunos && turma.alunos.length > 0) { %>
+            <% turma.alunos.forEach(aluno => { %>
+                <tr>
+                    <td><%= aluno.nome %></td>
+                    <td><%= aluno.email %></td>
+                </tr>
+            <% }) %>
+        <% } else { %>
+            <tr>
+                <td colspan="2" class="text-center">Nenhum aluno encontrado nesta turma.</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+<%- include('../partials/footer') %>

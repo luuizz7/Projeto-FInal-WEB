@@ -4,6 +4,7 @@ const session = require("express-session");
 const path = require("path");
 const bodyparser = require("body-parser");
 const sequelize = require("./config/database");
+const professoresRoutes = require('./routes/professores');
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use("/auth", authRoutes);
 app.use("/", mainRoutes);
 app.use("/alunos", alunoRoutes);
 app.use("/turmas", turmaRoutes);
+app.use('/professores', professoresRoutes);
 
 // sincronizando banco
 sequelize

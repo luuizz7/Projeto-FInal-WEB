@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+
+<h2 class="mb-3">Professores</h2>
+
+<a href="/professores/novo" class="btn btn-primary mb-3">Novo Professor</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% if (professores.length > 0) { %>
+            <% professores.forEach(p => { %>
+                <tr>
+                    <td><%= p.nome %></td>
+                    <td><%= p.email %></td>
+                    <td>
+                        <a href="/professores/editar/<%= p.id %>" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="/professores/deletar/<%= p.id %>" class="btn btn-danger btn-sm">Excluir</a>
+                    </td>
+                </tr>
+            <% }) %>
+        <% } else { %>
+            <tr>
+                <td colspan="3" class="text-center">Nenhum professor encontrado.</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+<%- include('../partials/footer') %>

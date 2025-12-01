@@ -1,0 +1,34 @@
+<%- include('../partials/header') %>
+
+<h2><%= professor ? "Editar Professor" : "Novo Professor" %></h2>
+
+<form action="<%= professor ? '/professores/editar/' + professor.id : '/professores/novo' %>" method="post">
+
+    <div class="mb-3">
+        <label>Nome</label>
+        <input
+            type="text"
+            name="nome"
+            class="form-control"
+            required
+            value="<%= professor ? professor.nome : '' %>"
+        >
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input
+            type="email"
+            name="email"
+            class="form-control"
+            value="<%= professor ? professor.email : '' %>"
+        >
+    </div>
+
+    <button class="btn btn-success w-100">
+        <%= professor ? "Atualizar" : "Salvar" %>
+    </button>
+
+</form>
+
+<%- include('../partials/footer') %>

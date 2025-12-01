@@ -3,6 +3,7 @@
 <h2 class="text-center"><%= turma ? "Editar Turma" : "Nova Turma" %></h2>
 
 <form action="<%= turma ? '/turmas/editar/' + turma.id : '/turmas/novo' %>" method="post">
+  
 
     <div class="mb-3">
         <label for="nome">Nome da Turma</label>

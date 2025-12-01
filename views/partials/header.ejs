@@ -42,6 +42,7 @@
             <ul class="navbar-nav ms-auto">
 
                 <% if (usuario) { %>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/alunos">Alunos</a>
                     </li>
@@ -51,12 +52,19 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" href="/professores">Professores</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link text-danger" href="/auth/logout">Sair</a>
                     </li>
+
                 <% } else { %>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/auth/login">Login</a>
                     </li>
+
                 <% } %>
 
             </ul>
@@ -65,5 +73,4 @@
     </div>
 </nav>
 
-<!-- container CORRETO -->
 <div class="container mt-4">

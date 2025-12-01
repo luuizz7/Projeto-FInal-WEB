@@ -12,4 +12,6 @@ router.post('/editar/:id', checarLogin, alunoController.update);
 
 router.get('/deletar/:id', checarLogin, alunoController.delete);
 
+router.get('/:id/professores', checarLogin, alunoController.verProfessores);
+
 module.exports = router;

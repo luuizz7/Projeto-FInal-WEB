@@ -5,42 +5,38 @@
 <form action="<%= aluno ? '/alunos/editar/' + aluno.id : '/alunos/novo' %>" method="post">
 
     <div class="mb-3">
-        <label for="nome">Nome do aluno</label>
-        <input 
-            id="nome"
-            class="form-control"
-            type="text"
-            name="nome"
-            value="<%= aluno ? aluno.nome : '' %>"
-            required
-        >
+        <label>Nome</label>
+        <input class="form-control" type="text" name="nome" value="<%= aluno ? aluno.nome : '' %>" required>
     </div>
 
     <div class="mb-3">
-        <label for="email">Email</label>
-        <input 
-            id="email"
-            class="form-control"
-            type="email"
-            name="email"
-            value="<%= aluno ? aluno.email : '' %>"
-        >
+        <label>Email</label>
+        <input class="form-control" type="email" name="email" value="<%= aluno ? aluno.email : '' %>">
     </div>
 
     <div class="mb-3">
-        <label for="turmaId">Turma</label>
-        <select id="turmaId" class="form-control" name="turmaId" required>
-            <option value="">Selecione uma turma</option>
-
-            <% turmas.forEach(turma => { %>
-                <option 
-                    value="<%= turma.id %>" 
-                    <%= aluno && aluno.turmaId === turma.id ? "selected" : "" %>
-                >
-                    <%= turma.nome %> - <%= turma.turno %>
+        <label>Turma</label>
+        <select class="form-control" name="turmaId" required>
+            <option value="">Selecione</option>
+            <% turmas.forEach(t => { %>
+                <option value="<%= t.id %>" <%= aluno && aluno.turmaId === t.id ? "selected" : "" %>>
+                    <%= t.nome %> - <%= t.turno %>
                 </option>
             <% }) %>
         </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Professores</label>
+        <select class="form-control" name="professoresIds" multiple>
+            <% professores.forEach(prof => { %>
+                <option value="<%= prof.id %>"
+                    <%= aluno && aluno.professores.some(p => p.id === prof.id) ? "selected" : "" %>>
+                    <%= prof.nome %>
+                </option>
+            <% }) %>
+        </select>
+        <small class="text-muted">Segure CTRL para selecionar vários.</small>
     </div>
 
     <button class="btn btn-success w-100 mt-3">
