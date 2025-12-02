@@ -1,26 +1,41 @@
 <%- include('../partials/header') %>
+<!-- inclui cabecalho -->
 
-<h2 class="text-center">registrar usuario</h2>
+<h2 class="text-center">Registrar usuário</h2>
+<!-- titulo da pagina -->
 
 <form action="/auth/register" method="post" class="mt-3">
+    <!-- formulario envia dados pro backend -->
 
     <div class="mb-3">
-        <label>nome</label>
+        <label>Nome</label>
         <input type="text" class="form-control" name="nome" required>
+        <!-- input do nome -->
     </div>
 
     <div class="mb-3">
-        <label>email</label>
+        <label>Email</label>
         <input type="email" class="form-control" name="email" required>
+        <!-- input do email -->
     </div>
 
     <div class="mb-3">
-        <label>senha</label>
+        <label>Senha</label>
         <input type="password" class="form-control" name="senha" required>
+        <!-- input da senha -->
     </div>
 
-    <button class="btn btn-success w-100">registrar</button>
+    <% if (erro) { %>
+        <div style="color: red; border: 1px solid red; padding: 5px; margin-bottom: 10px;">
+            <%= erro %>
+        </div>
+        <!-- mostra mensagem de erro se existir -->
+    <% } %>
+
+    <button class="btn btn-success w-100">Registrar</button>
+    <!-- botao de envio -->
 
 </form>
 
 <%- include('../partials/footer') %>
+<!-- inclui rodape -->
