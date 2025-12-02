@@ -1,18 +1,19 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { DataTypes } = require('sequelize'); // tipos
+const sequelize = require('../config/database'); // conexao
 
+// tabela de ligacao aluno professor
 const AlunoProfessor = sequelize.define('AlunoProfessor', {
     alunoId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER, // id aluno
         allowNull: false
     },
     professorId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER, // id professor
         allowNull: false
     }
 }, {
-    freezeTableName: true,
-    timestamps: true
+    freezeTableName: true, // nome fixo
+    timestamps: true // datas auto
 });
 
-module.exports = AlunoProfessor;
+module.exports = AlunoProfessor; // exporta

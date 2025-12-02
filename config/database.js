@@ -1,11 +1,14 @@
 // config do banco usando sequelize com postgree, onde eu importo o sequelize e já jogo as informacoes do bdd
 
+// importa sequelize
 const { Sequelize } = require('sequelize')
 
+// cria conexao com o banco
 const sequelize = new Sequelize('alunoseturmas', 'escolaadmin', 'senha123', {
     host: 'localhost',
     dialect: 'postgres',
-    logging: false // desativa logs do sequelize no tmnl
+    logging: false // desativa logs
 })
 
+// exporta conexao
 module.exports = sequelize
